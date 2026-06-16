@@ -57,15 +57,15 @@ class BHKWSimulator:
         sp_raw  = self._read_holding(2)
         self.power_setpoint = sp_raw / 10.0 if sp_raw > 0 else 50.0
         fault_inject = self._read_holding(3)
-        if fault_inject > 0:
-            logger.warning('Fault injection: code=%d', fault_inject)
-            self.fault_code = fault_inject
-            self.power_output = 0.0
-            self.state = BHKWState.FAULT
-            self._write_holding(3, 0)
 
         with self._lock:
-            if command == 1 and self.state == BHKWState.IDLE:
+            if fault_inject > 0:
+                logger.warning('Fault injection: code=%d', fault_inject)
+                self.fault_code = fault_inject
+                self.power_output = 0.0
+                self.state = BHKWState.FAULT
+                self._write_holding(3, 0)
+            elif command == 1 and self.state == BHKWState.IDLE:
                 logger.info('CMD: START')
                 self.state = BHKWState.STARTING
                 self._write_holding(1, 0)
@@ -112,6 +112,14 @@ class BHKWSimulator:
             self.state.name, self.power_output, self.temperature, self.fault_code
         )
 
+    def inject_fault(self, fault_code=1):
+        with self._lock:
+            logger.warning('Fault injected: code=%d', fault_code)
+            self.fault_code   = fault_code
+            self.power_output = 0.0
+            self.state        = BHKWState.FAULT
+        self._update_input_registers()
+
     def run_simulation_loop(self):
         logger.info('BHKW Simulator loop started')
         while True:
@@ -119,14 +127,30 @@ class BHKWSimulator:
             self._simulate_state()
             time.sleep(1.0)
 
-    def start(self, host='localhost', port=5020):
-        sim_thread = threading.Thread(target=self.run_simulation_loop, daemon=True)
-        sim_thread.start()
+    def start_modbus(self, host='localhost', port=5020):
         logger.info('Modbus TCP Server on %s:%d', host, port)
         StartTcpServer(context=self.context, address=(host, port))
 
 
 if __name__ == '__main__':
-    simulator = BHKWSimulator()
-    simulator.start(host='localhost', port=5020)
+    import sys
+    sys.path.insert(0, '.')
+    from simulator.bhkw_api import start_api
 
+    simulator = BHKWSimulator()
+
+    sim_thread = threading.Thread(target=simulator.run_simulation_loop, daemon=True)
+    sim_thread.start()
+
+    modbus_thread = threading.Thread(
+        target=simulator.start_modbus,
+        kwargs={'host': 'localhost', 'port': 5020},
+        daemon=True
+    )
+    modbus_thread.start()
+
+    time.sleep(1)
+    print('Modbus TCP on localhost:5020')
+    print('REST API  on localhost:8080')
+
+    start_api(simulator, host='localhost', port=8080)

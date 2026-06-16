@@ -1,568 +1,1045 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.4.2 (Python 3.12.10 on win32)" generated="2026-06-16T15:51:31.419605" rpa="false" schemaversion="5">
+<robot generator="Robot 7.4.2 (Python 3.12.10 on win32)" generated="2026-06-16T18:45:10.058763" rpa="false" schemaversion="5">
 <suite id="s1" name="Tests" source="C:\Users\Steve\Desktop\bhkw-system-tests\tests">
 <suite id="s1-s1" name="Test Fault Handling" source="C:\Users\Steve\Desktop\bhkw-system-tests\tests\test_fault_handling.robot">
 <kw name="Connect To Bhkw" owner="BHKWLibrary" type="SETUP">
-<msg time="2026-06-16T15:51:31.500639" level="INFO">Connected to BHKW at localhost:5020</msg>
-<status status="PASS" start="2026-06-16T15:51:31.488623" elapsed="0.012016"/>
+<msg time="2026-06-16T18:45:10.137828" level="INFO">Connected to BHKW at localhost:5020</msg>
+<status status="PASS" start="2026-06-16T18:45:10.128760" elapsed="0.009068"/>
 </kw>
 <test id="s1-s1-t1" name="TC04 Fault detected during RUNNING state" line="8">
 <kw name="Send Command" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:31.502643" level="INFO">Command sent: START (1)</msg>
+<msg time="2026-06-16T18:45:10.139760" level="INFO">Command sent: START (1)</msg>
 <arg>START</arg>
-<status status="PASS" start="2026-06-16T15:51:31.501605" elapsed="0.001998"/>
+<status status="PASS" start="2026-06-16T18:45:10.138802" elapsed="0.000958"/>
 </kw>
 <kw name="Wait For State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:41.528222" level="INFO">State reached: RUNNING</msg>
+<msg time="2026-06-16T18:45:20.153085" level="INFO">State reached: RUNNING</msg>
 <arg>RUNNING</arg>
 <arg>timeout=30</arg>
-<status status="PASS" start="2026-06-16T15:51:31.503603" elapsed="10.025627"/>
+<status status="PASS" start="2026-06-16T18:45:10.139760" elapsed="10.014389"/>
 </kw>
 <kw name="Check No Fault" owner="BHKWLibrary">
-<status status="PASS" start="2026-06-16T15:51:41.530158" elapsed="0.002016"/>
+<status status="PASS" start="2026-06-16T18:45:20.154149" elapsed="0.000990"/>
 </kw>
 <kw name="Inject Fault" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:41.536223" level="INFO">Fault injected: code=1</msg>
+<msg time="2026-06-16T18:45:20.156142" level="INFO">Fault injected: code=1</msg>
 <arg>fault_code=1</arg>
-<status status="PASS" start="2026-06-16T15:51:41.533173" elapsed="0.003050"/>
+<status status="PASS" start="2026-06-16T18:45:20.155139" elapsed="0.001003"/>
 </kw>
 <kw name="Wait For State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:42.543513" level="INFO">State reached: FAULT</msg>
+<msg time="2026-06-16T18:45:21.159183" level="INFO">State reached: FAULT</msg>
 <arg>FAULT</arg>
 <arg>timeout=10</arg>
-<status status="PASS" start="2026-06-16T15:51:41.537167" elapsed="1.006346"/>
+<status status="PASS" start="2026-06-16T18:45:20.156142" elapsed="1.003041"/>
 </kw>
 <kw name="Read Fault Code" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:42.547492" level="INFO">${fault} = 1</msg>
+<msg time="2026-06-16T18:45:21.161183" level="INFO">${fault} = 1</msg>
 <var>${fault}</var>
-<status status="PASS" start="2026-06-16T15:51:42.544512" elapsed="0.002980"/>
+<status status="PASS" start="2026-06-16T18:45:21.159183" elapsed="0.002000"/>
 </kw>
 <kw name="Should Not Be Equal As Integers" owner="BuiltIn">
-<msg time="2026-06-16T15:51:42.550506" level="INFO">Argument types are:
+<msg time="2026-06-16T18:45:21.162186" level="INFO">Argument types are:
 &lt;class 'int'&gt;
 &lt;class 'str'&gt;</msg>
 <arg>${fault}</arg>
 <arg>0</arg>
 <doc>Fails if objects are equal after converting them to integers.</doc>
-<status status="PASS" start="2026-06-16T15:51:42.548487" elapsed="0.002019"/>
+<status status="PASS" start="2026-06-16T18:45:21.161183" elapsed="0.001003"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-06-16T15:51:42.552564" level="INFO">TC04 PASSED: Fault correctly detected</msg>
+<msg time="2026-06-16T18:45:21.163232" level="INFO">TC04 PASSED: Fault correctly detected</msg>
 <arg>TC04 PASSED: Fault correctly detected</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-06-16T15:51:42.551494" elapsed="0.002007"/>
+<status status="PASS" start="2026-06-16T18:45:21.162186" elapsed="0.001046"/>
 </kw>
 <doc>Verify BHKW transitions to FAULT state when fault is injected</doc>
 <tag>fault</tag>
 <tag>regression</tag>
-<status status="PASS" start="2026-06-16T15:51:31.501605" elapsed="11.052892"/>
+<status status="PASS" start="2026-06-16T18:45:10.137828" elapsed="11.025404"/>
 </test>
 <test id="s1-s1-t2" name="TC05 BHKW recovers from fault via RESET" line="20">
 <kw name="Read State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:42.562491" level="INFO">${state} = FAULT</msg>
+<msg time="2026-06-16T18:45:21.167172" level="INFO">${state} = FAULT</msg>
 <var>${state}</var>
-<status status="PASS" start="2026-06-16T15:51:42.560495" elapsed="0.001996"/>
+<status status="PASS" start="2026-06-16T18:45:21.166177" elapsed="0.000995"/>
 </kw>
 <kw name="Should Be Equal" owner="BuiltIn">
 <arg>${state}</arg>
 <arg>FAULT</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-06-16T15:51:42.563498" elapsed="0.000998"/>
+<status status="PASS" start="2026-06-16T18:45:21.167172" elapsed="0.001058"/>
 </kw>
 <kw name="Send Command" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:42.566485" level="INFO">Command sent: RESET (3)</msg>
+<msg time="2026-06-16T18:45:21.169185" level="INFO">Command sent: RESET (3)</msg>
 <arg>RESET</arg>
-<status status="PASS" start="2026-06-16T15:51:42.564496" elapsed="0.001989"/>
+<status status="PASS" start="2026-06-16T18:45:21.168230" elapsed="0.001946"/>
 </kw>
 <kw name="Wait For State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:43.568746" level="INFO">State reached: IDLE</msg>
+<msg time="2026-06-16T18:45:22.173357" level="INFO">State reached: IDLE</msg>
 <arg>IDLE</arg>
 <arg>timeout=10</arg>
-<status status="PASS" start="2026-06-16T15:51:42.567536" elapsed="1.001210"/>
+<status status="PASS" start="2026-06-16T18:45:21.170176" elapsed="1.003181"/>
 </kw>
 <kw name="Read Fault Code" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:43.569768" level="INFO">${fault} = 0</msg>
+<msg time="2026-06-16T18:45:22.177300" level="INFO">${fault} = 0</msg>
 <var>${fault}</var>
-<status status="PASS" start="2026-06-16T15:51:43.569768" elapsed="0.000000"/>
+<status status="PASS" start="2026-06-16T18:45:22.175291" elapsed="0.002009"/>
 </kw>
 <kw name="Should Be Equal As Integers" owner="BuiltIn">
-<msg time="2026-06-16T15:51:43.570806" level="INFO">Argument types are:
+<msg time="2026-06-16T18:45:22.180351" level="INFO">Argument types are:
 &lt;class 'int'&gt;
 &lt;class 'str'&gt;</msg>
 <arg>${fault}</arg>
 <arg>0</arg>
 <doc>Fails if objects are unequal after converting them to integers.</doc>
-<status status="PASS" start="2026-06-16T15:51:43.570806" elapsed="0.000000"/>
+<status status="PASS" start="2026-06-16T18:45:22.179301" elapsed="0.001050"/>
 </kw>
 <kw name="Read Power Output" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:43.571805" level="INFO">${power} = 0.0</msg>
+<msg time="2026-06-16T18:45:22.185285" level="INFO">${power} = 0.0</msg>
 <var>${power}</var>
-<status status="PASS" start="2026-06-16T15:51:43.570806" elapsed="0.000999"/>
+<status status="PASS" start="2026-06-16T18:45:22.182348" elapsed="0.002937"/>
 </kw>
 <kw name="Should Be Equal As Numbers" owner="BuiltIn">
-<msg time="2026-06-16T15:51:43.572809" level="INFO">Argument types are:
+<msg time="2026-06-16T18:45:22.187313" level="INFO">Argument types are:
 &lt;class 'float'&gt;
 &lt;class 'str'&gt;</msg>
 <arg>${power}</arg>
 <arg>0</arg>
 <doc>Fails if objects are unequal after converting them to real numbers.</doc>
-<status status="PASS" start="2026-06-16T15:51:43.571805" elapsed="0.001004"/>
+<status status="PASS" start="2026-06-16T18:45:22.186286" elapsed="0.001027"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-06-16T15:51:43.572809" level="INFO">TC05 PASSED: BHKW recovered from fault</msg>
+<msg time="2026-06-16T18:45:22.190348" level="INFO">TC05 PASSED: BHKW recovered from fault</msg>
 <arg>TC05 PASSED: BHKW recovered from fault</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-06-16T15:51:43.572809" elapsed="0.000000"/>
+<status status="PASS" start="2026-06-16T18:45:22.188338" elapsed="0.002010"/>
 </kw>
 <doc>Verify BHKW returns to IDLE after RESET command in FAULT state</doc>
 <tag>fault</tag>
 <tag>regression</tag>
 <tag>reset</tag>
-<status status="PASS" start="2026-06-16T15:51:42.556485" elapsed="1.017289"/>
+<status status="PASS" start="2026-06-16T18:45:21.164173" elapsed="1.028127"/>
 </test>
 <test id="s1-s1-t3" name="TC06 START command ignored in FAULT state" line="33">
 <kw name="Inject Fault" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:43.576774" level="INFO">Fault injected: code=2</msg>
+<msg time="2026-06-16T18:45:22.198284" level="INFO">Fault injected: code=2</msg>
 <arg>fault_code=2</arg>
-<status status="PASS" start="2026-06-16T15:51:43.575776" elapsed="0.000998"/>
+<status status="PASS" start="2026-06-16T18:45:22.196289" elapsed="0.001995"/>
 </kw>
 <kw name="Wait For State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:44.580109" level="INFO">State reached: FAULT</msg>
+<msg time="2026-06-16T18:45:23.203588" level="INFO">State reached: FAULT</msg>
 <arg>FAULT</arg>
 <arg>timeout=10</arg>
-<status status="PASS" start="2026-06-16T15:51:43.576774" elapsed="1.003335"/>
+<status status="PASS" start="2026-06-16T18:45:22.199286" elapsed="1.004302"/>
 </kw>
 <kw name="Send Command" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:44.584106" level="INFO">Command sent: START (1)</msg>
+<msg time="2026-06-16T18:45:23.205620" level="INFO">Command sent: START (1)</msg>
 <arg>START</arg>
-<status status="PASS" start="2026-06-16T15:51:44.581115" elapsed="0.003987"/>
+<status status="PASS" start="2026-06-16T18:45:23.204569" elapsed="0.002038"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2026-06-16T15:51:47.587485" level="INFO">Slept 3 seconds.</msg>
+<msg time="2026-06-16T18:45:26.207918" level="INFO">Slept 3 seconds.</msg>
 <arg>3</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2026-06-16T15:51:44.586096" elapsed="3.001389"/>
+<status status="PASS" start="2026-06-16T18:45:23.206607" elapsed="3.001311"/>
 </kw>
 <kw name="Read State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:47.592543" level="INFO">${state} = FAULT</msg>
+<msg time="2026-06-16T18:45:26.209518" level="INFO">${state} = FAULT</msg>
 <var>${state}</var>
-<status status="PASS" start="2026-06-16T15:51:47.589590" elapsed="0.002953"/>
+<status status="PASS" start="2026-06-16T18:45:26.208498" elapsed="0.001020"/>
 </kw>
 <kw name="Should Be Equal" owner="BuiltIn">
 <arg>${state}</arg>
 <arg>FAULT</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-06-16T15:51:47.593538" elapsed="0.002015"/>
+<status status="PASS" start="2026-06-16T18:45:26.210514" elapsed="0.000000"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-06-16T15:51:47.596590" level="INFO">TC06 PASSED: START correctly ignored in FAULT state</msg>
+<msg time="2026-06-16T18:45:26.211569" level="INFO">TC06 PASSED: START correctly ignored in FAULT state</msg>
 <arg>TC06 PASSED: START correctly ignored in FAULT state</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-06-16T15:51:47.596590" elapsed="0.000000"/>
+<status status="PASS" start="2026-06-16T18:45:26.211569" elapsed="0.000000"/>
 </kw>
 <kw name="Send Command" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:47.597511" level="INFO">Command sent: RESET (3)</msg>
+<msg time="2026-06-16T18:45:26.213573" level="INFO">Command sent: RESET (3)</msg>
 <arg>RESET</arg>
-<status status="PASS" start="2026-06-16T15:51:47.596590" elapsed="0.000921"/>
+<status status="PASS" start="2026-06-16T18:45:26.212570" elapsed="0.001003"/>
 </kw>
 <kw name="Wait For State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:48.601289" level="INFO">State reached: IDLE</msg>
+<msg time="2026-06-16T18:45:27.215618" level="INFO">State reached: IDLE</msg>
 <arg>IDLE</arg>
 <arg>timeout=10</arg>
-<status status="PASS" start="2026-06-16T15:51:47.597511" elapsed="1.003778"/>
+<status status="PASS" start="2026-06-16T18:45:26.213573" elapsed="1.002045"/>
 </kw>
 <doc>Verify BHKW ignores START command when in FAULT state</doc>
 <tag>fault</tag>
 <tag>negative</tag>
-<status status="PASS" start="2026-06-16T15:51:43.574767" elapsed="5.028480"/>
+<status status="PASS" start="2026-06-16T18:45:22.194295" elapsed="5.022331"/>
 </test>
 <kw name="Disconnect From Bhkw" owner="BHKWLibrary" type="TEARDOWN">
-<msg time="2026-06-16T15:51:48.609211" level="INFO">Disconnected from BHKW</msg>
-<status status="PASS" start="2026-06-16T15:51:48.608211" elapsed="0.001000"/>
+<msg time="2026-06-16T18:45:27.217663" level="INFO">Disconnected from BHKW</msg>
+<status status="PASS" start="2026-06-16T18:45:27.217663" elapsed="0.000000"/>
 </kw>
-<status status="PASS" start="2026-06-16T15:51:31.458643" elapsed="17.151626"/>
+<status status="PASS" start="2026-06-16T18:45:10.098763" elapsed="17.118900"/>
 </suite>
 <suite id="s1-s2" name="Test Power Regulation" source="C:\Users\Steve\Desktop\bhkw-system-tests\tests\test_power_regulation.robot">
 <kw name="Connect To Bhkw" owner="BHKWLibrary" type="SETUP">
-<msg time="2026-06-16T15:51:48.626204" level="INFO">Connected to BHKW at localhost:5020</msg>
-<status status="PASS" start="2026-06-16T15:51:48.622255" elapsed="0.003949"/>
+<msg time="2026-06-16T18:45:27.231859" level="INFO">Connected to BHKW at localhost:5020</msg>
+<status status="PASS" start="2026-06-16T18:45:27.220624" elapsed="0.011235"/>
 </kw>
 <test id="s1-s2-t1" name="TC07 Power output within nominal range" line="8">
 <kw name="Send Command" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:48.628248" level="INFO">Command sent: START (1)</msg>
+<msg time="2026-06-16T18:45:27.232885" level="INFO">Command sent: START (1)</msg>
 <arg>START</arg>
-<status status="PASS" start="2026-06-16T15:51:48.627245" elapsed="0.001003"/>
+<status status="PASS" start="2026-06-16T18:45:27.231859" elapsed="0.001026"/>
 </kw>
 <kw name="Wait For State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:58.656087" level="INFO">State reached: RUNNING</msg>
+<msg time="2026-06-16T18:45:37.246948" level="INFO">State reached: RUNNING</msg>
 <arg>RUNNING</arg>
 <arg>timeout=30</arg>
-<status status="PASS" start="2026-06-16T15:51:48.629203" elapsed="10.027915"/>
+<status status="PASS" start="2026-06-16T18:45:27.232885" elapsed="10.014063"/>
 </kw>
 <kw name="Check Power Output" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:58.660160" level="INFO">Power OK: 50.0kW</msg>
+<msg time="2026-06-16T18:45:37.247948" level="INFO">Power OK: 50.0kW</msg>
 <arg>min_kw=40</arg>
 <arg>max_kw=60</arg>
-<status status="PASS" start="2026-06-16T15:51:58.658092" elapsed="0.002987"/>
+<status status="PASS" start="2026-06-16T18:45:37.246948" elapsed="0.001000"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2026-06-16T15:51:59.663529" level="INFO">Slept 1 second.</msg>
+<msg time="2026-06-16T18:45:38.249718" level="INFO">Slept 1 second.</msg>
 <arg>1</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2026-06-16T15:51:58.662088" elapsed="1.001441"/>
+<status status="PASS" start="2026-06-16T18:45:37.248991" elapsed="1.000727"/>
 </kw>
 <kw name="Check Power Output" owner="BHKWLibrary">
-<msg time="2026-06-16T15:51:59.667638" level="INFO">Power OK: 50.0kW</msg>
+<msg time="2026-06-16T18:45:38.250773" level="INFO">Power OK: 50.0kW</msg>
 <arg>min_kw=40</arg>
 <arg>max_kw=60</arg>
-<status status="PASS" start="2026-06-16T15:51:59.665599" elapsed="0.003034"/>
+<status status="PASS" start="2026-06-16T18:45:38.249718" elapsed="0.001055"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2026-06-16T15:52:00.670903" level="INFO">Slept 1 second.</msg>
+<msg time="2026-06-16T18:45:39.252575" level="INFO">Slept 1 second.</msg>
 <arg>1</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2026-06-16T15:51:59.668633" elapsed="1.002270"/>
+<status status="PASS" start="2026-06-16T18:45:38.251731" elapsed="1.000844"/>
 </kw>
 <kw name="Check Power Output" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:00.672920" level="INFO">Power OK: 51.0kW</msg>
+<msg time="2026-06-16T18:45:39.255592" level="INFO">Power OK: 51.0kW</msg>
 <arg>min_kw=40</arg>
 <arg>max_kw=60</arg>
-<status status="PASS" start="2026-06-16T15:52:00.671930" elapsed="0.000990"/>
+<status status="PASS" start="2026-06-16T18:45:39.253603" elapsed="0.001989"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-06-16T15:52:00.672920" level="INFO">TC07 PASSED: Power stable within nominal range</msg>
+<msg time="2026-06-16T18:45:39.256594" level="INFO">TC07 PASSED: Power stable within nominal range</msg>
 <arg>TC07 PASSED: Power stable within nominal range</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-06-16T15:52:00.672920" elapsed="0.000000"/>
+<status status="PASS" start="2026-06-16T18:45:39.256594" elapsed="0.000000"/>
 </kw>
 <doc>Verify power output stays within 40-60 kW during normal operation</doc>
 <tag>power</tag>
 <tag>regression</tag>
-<status status="PASS" start="2026-06-16T15:51:48.626204" elapsed="12.047708"/>
+<status status="PASS" start="2026-06-16T18:45:27.231859" elapsed="12.025740"/>
 </test>
 <test id="s1-s2-t2" name="TC08 Power setpoint change" line="20">
 <kw name="Read State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:00.674956" level="INFO">${state} = RUNNING</msg>
+<msg time="2026-06-16T18:45:39.261601" level="INFO">${state} = RUNNING</msg>
 <var>${state}</var>
-<status status="PASS" start="2026-06-16T15:52:00.674956" elapsed="0.000000"/>
+<status status="PASS" start="2026-06-16T18:45:39.260593" elapsed="0.002006"/>
 </kw>
 <kw name="Should Be Equal" owner="BuiltIn">
 <arg>${state}</arg>
 <arg>RUNNING</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-06-16T15:52:00.675951" elapsed="0.000000"/>
+<status status="PASS" start="2026-06-16T18:45:39.262599" elapsed="0.000996"/>
 </kw>
 <kw name="Read Power Output" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:00.676953" level="INFO">${power} = 51.0</msg>
+<msg time="2026-06-16T18:45:39.265605" level="INFO">${power} = 51.0</msg>
 <var>${power}</var>
-<status status="PASS" start="2026-06-16T15:52:00.675951" elapsed="0.001002"/>
+<status status="PASS" start="2026-06-16T18:45:39.264595" elapsed="0.001010"/>
 </kw>
 <kw name="Should Be True" owner="BuiltIn">
 <arg>${power} &gt;= 40</arg>
 <doc>Fails if the given condition is not true.</doc>
-<status status="PASS" start="2026-06-16T15:52:00.676953" elapsed="0.000966"/>
+<status status="PASS" start="2026-06-16T18:45:39.266608" elapsed="0.001043"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-06-16T15:52:00.677919" level="INFO">TC08 PASSED: Power within range</msg>
+<msg time="2026-06-16T18:45:39.268664" level="INFO">TC08 PASSED: Power within range</msg>
 <arg>TC08 PASSED: Power within range</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-06-16T15:52:00.677919" elapsed="0.000000"/>
+<status status="PASS" start="2026-06-16T18:45:39.268664" elapsed="0.000000"/>
 </kw>
 <doc>Verify power output is within range during RUNNING</doc>
 <tag>power</tag>
 <tag>regression</tag>
-<status status="PASS" start="2026-06-16T15:52:00.673912" elapsed="0.005043"/>
+<status status="PASS" start="2026-06-16T18:45:39.259592" elapsed="0.009072"/>
 </test>
 <test id="s1-s2-t3" name="TC09 Temperature within safe range during operation" line="29">
 <kw name="Read State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:00.679952" level="INFO">${state} = RUNNING</msg>
+<msg time="2026-06-16T18:45:39.271593" level="INFO">${state} = RUNNING</msg>
 <var>${state}</var>
-<status status="PASS" start="2026-06-16T15:52:00.679952" elapsed="0.001003"/>
+<status status="PASS" start="2026-06-16T18:45:39.270598" elapsed="0.000995"/>
 </kw>
 <kw name="Should Be Equal" owner="BuiltIn">
 <arg>${state}</arg>
 <arg>RUNNING</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-06-16T15:52:00.680955" elapsed="0.000000"/>
+<status status="PASS" start="2026-06-16T18:45:39.272636" elapsed="0.001008"/>
 </kw>
 <kw name="Check Temperature" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:00.681913" level="INFO">Temperature OK: 85.0C</msg>
+<msg time="2026-06-16T18:45:39.274630" level="INFO">Temperature OK: 85.0C</msg>
 <arg>min_temp=75</arg>
 <arg>max_temp=92</arg>
-<status status="PASS" start="2026-06-16T15:52:00.680955" elapsed="0.000958"/>
+<status status="PASS" start="2026-06-16T18:45:39.273644" elapsed="0.000986"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2026-06-16T15:52:01.683856" level="INFO">Slept 1 second.</msg>
+<msg time="2026-06-16T18:45:40.276099" level="INFO">Slept 1 second.</msg>
 <arg>1</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2026-06-16T15:52:00.681913" elapsed="1.001943"/>
+<status status="PASS" start="2026-06-16T18:45:39.274630" elapsed="1.001469"/>
 </kw>
 <kw name="Check Temperature" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:01.688918" level="INFO">Temperature OK: 86.0C</msg>
+<msg time="2026-06-16T18:45:40.277125" level="INFO">Temperature OK: 86.0C</msg>
 <arg>min_temp=75</arg>
 <arg>max_temp=92</arg>
-<status status="PASS" start="2026-06-16T15:52:01.685929" elapsed="0.004036"/>
+<status status="PASS" start="2026-06-16T18:45:40.276099" elapsed="0.001026"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2026-06-16T15:52:02.692715" level="INFO">Slept 1 second.</msg>
+<msg time="2026-06-16T18:45:41.278559" level="INFO">Slept 1 second.</msg>
 <arg>1</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2026-06-16T15:52:01.690926" elapsed="1.001789"/>
+<status status="PASS" start="2026-06-16T18:45:40.277125" elapsed="1.001434"/>
 </kw>
 <kw name="Check Temperature" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:02.696819" level="INFO">Temperature OK: 87.0C</msg>
+<msg time="2026-06-16T18:45:41.279631" level="INFO">Temperature OK: 87.0C</msg>
 <arg>min_temp=75</arg>
 <arg>max_temp=92</arg>
-<status status="PASS" start="2026-06-16T15:52:02.693780" elapsed="0.003039"/>
+<status status="PASS" start="2026-06-16T18:45:41.278559" elapsed="0.001072"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-06-16T15:52:02.698806" level="INFO">TC09 PASSED: Temperature within safe range</msg>
+<msg time="2026-06-16T18:45:41.280628" level="INFO">TC09 PASSED: Temperature within safe range</msg>
 <arg>TC09 PASSED: Temperature within safe range</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-06-16T15:52:02.697822" elapsed="0.001927"/>
+<status status="PASS" start="2026-06-16T18:45:41.279631" elapsed="0.000997"/>
 </kw>
 <doc>Verify engine temperature stays within safe limits</doc>
 <tag>regression</tag>
 <tag>temperature</tag>
-<status status="PASS" start="2026-06-16T15:52:00.678955" elapsed="2.021862"/>
+<status status="PASS" start="2026-06-16T18:45:39.269634" elapsed="2.010994"/>
 </test>
 <test id="s1-s2-t4" name="TC10 Power drops to zero after stop" line="41">
 <kw name="Send Command" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:02.707736" level="INFO">Command sent: STOP (2)</msg>
+<msg time="2026-06-16T18:45:41.281620" level="INFO">Command sent: STOP (2)</msg>
 <arg>STOP</arg>
-<status status="PASS" start="2026-06-16T15:52:02.705753" elapsed="0.001983"/>
+<status status="PASS" start="2026-06-16T18:45:41.281620" elapsed="0.000000"/>
 </kw>
 <kw name="Wait For State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:12.734658" level="INFO">State reached: IDLE</msg>
+<msg time="2026-06-16T18:45:51.294322" level="INFO">State reached: IDLE</msg>
 <arg>IDLE</arg>
 <arg>timeout=30</arg>
-<status status="PASS" start="2026-06-16T15:52:02.708739" elapsed="10.026865"/>
+<status status="PASS" start="2026-06-16T18:45:41.282584" elapsed="10.012774"/>
 </kw>
 <kw name="Read Power Output" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:12.739655" level="INFO">${power} = 0.0</msg>
+<msg time="2026-06-16T18:45:51.296337" level="INFO">${power} = 0.0</msg>
 <var>${power}</var>
-<status status="PASS" start="2026-06-16T15:52:12.737593" elapsed="0.002062"/>
+<status status="PASS" start="2026-06-16T18:45:51.295358" elapsed="0.000979"/>
 </kw>
 <kw name="Should Be Equal As Numbers" owner="BuiltIn">
-<msg time="2026-06-16T15:52:12.741576" level="INFO">Argument types are:
+<msg time="2026-06-16T18:45:51.297379" level="INFO">Argument types are:
 &lt;class 'float'&gt;
 &lt;class 'str'&gt;</msg>
 <arg>${power}</arg>
 <arg>0.0</arg>
 <doc>Fails if objects are unequal after converting them to real numbers.</doc>
-<status status="PASS" start="2026-06-16T15:52:12.740591" elapsed="0.000985"/>
+<status status="PASS" start="2026-06-16T18:45:51.296337" elapsed="0.001042"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-06-16T15:52:12.744654" level="INFO">TC10 PASSED: Power correctly dropped to zero</msg>
+<msg time="2026-06-16T18:45:51.298337" level="INFO">TC10 PASSED: Power correctly dropped to zero</msg>
 <arg>TC10 PASSED: Power correctly dropped to zero</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-06-16T15:52:12.743664" elapsed="0.000990"/>
+<status status="PASS" start="2026-06-16T18:45:51.298337" elapsed="0.000000"/>
 </kw>
 <doc>Verify power output is exactly 0 kW after STOP</doc>
 <tag>power</tag>
 <tag>regression</tag>
 <tag>stop</tag>
-<status status="PASS" start="2026-06-16T15:52:02.702777" elapsed="10.042820"/>
+<status status="PASS" start="2026-06-16T18:45:41.280628" elapsed="10.017709"/>
 </test>
 <kw name="Disconnect From Bhkw" owner="BHKWLibrary" type="TEARDOWN">
-<msg time="2026-06-16T15:52:12.747635" level="INFO">Disconnected from BHKW</msg>
-<status status="PASS" start="2026-06-16T15:52:12.746586" elapsed="0.001049"/>
+<msg time="2026-06-16T18:45:51.300377" level="INFO">Disconnected from BHKW</msg>
+<status status="PASS" start="2026-06-16T18:45:51.299351" elapsed="0.001026"/>
 </kw>
-<status status="PASS" start="2026-06-16T15:51:48.614259" elapsed="24.133376"/>
+<status status="PASS" start="2026-06-16T18:45:27.218626" elapsed="24.081751"/>
 </suite>
-<suite id="s1-s3" name="Test Start Stop" source="C:\Users\Steve\Desktop\bhkw-system-tests\tests\test_start_stop.robot">
-<kw name="Connect To Bhkw" owner="BHKWLibrary" type="SETUP">
-<msg time="2026-06-16T15:52:12.767898" level="INFO">Connected to BHKW at localhost:5020</msg>
-<status status="PASS" start="2026-06-16T15:52:12.755576" elapsed="0.012322"/>
+<suite id="s1-s3" name="Test Rest Api" source="C:\Users\Steve\Desktop\bhkw-system-tests\tests\test_rest_api.robot">
+<kw name="Setup Test Environment" type="SETUP">
+<kw name="Connect To Bhkw" owner="BHKWLibrary">
+<msg time="2026-06-16T18:45:51.504052" level="INFO">Connected to BHKW at localhost:5020</msg>
+<status status="PASS" start="2026-06-16T18:45:51.492396" elapsed="0.011656"/>
 </kw>
-<test id="s1-s3-t1" name="TC01 BHKW starts from IDLE state" line="8">
-<kw name="Read State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:12.769913" level="INFO">${state} = IDLE</msg>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-06-16T18:45:51.504052" level="INFO">Creating Session using : alias=bhkw, url=http://localhost:8080, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>bhkw</arg>
+<arg>${API_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-06-16T18:45:51.504052" elapsed="0.000822"/>
+</kw>
+<status status="PASS" start="2026-06-16T18:45:51.491331" elapsed="0.013543"/>
+</kw>
+<test id="s1-s3-t1" name="TC11 Health endpoint returns OK" line="19">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-06-16T18:45:51.511861" level="INFO">GET Request : url=http://localhost:8080/health 
+ path_url=/health 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-06-16T18:45:51.511861" level="INFO">GET Response : url=http://localhost:8080/health 
+ status=200, reason=OK 
+ headers={'date': 'Tue, 16 Jun 2026 16:45:51 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"ok","simulator":true} 
+ </msg>
+<msg time="2026-06-16T18:45:51.511861" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>bhkw</arg>
+<arg>/health</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.504874" elapsed="0.006987"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-06-16T18:45:51.512861" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.511861" elapsed="0.001000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-06-16T18:45:51.513862" level="INFO">${json} = {'status': 'ok', 'simulator': True}</msg>
+<var>${json}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.512861" elapsed="0.001001"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-06-16T18:45:51.513862" level="INFO">${status} = ok</msg>
+<var>${status}</var>
+<arg>${json}</arg>
+<arg>status</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.513862" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${status}</arg>
+<arg>ok</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.513862" elapsed="0.000998"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-06-16T18:45:51.514860" level="INFO">TC11 PASSED: REST API health OK</msg>
+<arg>TC11 PASSED: REST API health OK</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.514860" elapsed="0.000000"/>
+</kw>
+<doc>Verify REST API health endpoint</doc>
+<tag>rest</tag>
+<tag>smoke</tag>
+<status status="PASS" start="2026-06-16T18:45:51.504874" elapsed="0.009986"/>
+</test>
+<test id="s1-s3-t2" name="TC12 Status endpoint returns BHKW state" line="29">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-06-16T18:45:51.518862" level="INFO">GET Request : url=http://localhost:8080/api/status 
+ path_url=/api/status 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-06-16T18:45:51.518862" level="INFO">GET Response : url=http://localhost:8080/api/status 
+ status=200, reason=OK 
+ headers={'date': 'Tue, 16 Jun 2026 16:45:51 GMT', 'server': 'uvicorn', 'content-length': '89', 'content-type': 'application/json'} 
+ body={"state":"IDLE","power_output":0.0,"temperature":25.0,"fault_code":0,"runtime_minutes":4} 
+ </msg>
+<msg time="2026-06-16T18:45:51.518862" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>bhkw</arg>
+<arg>/api/status</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.515825" elapsed="0.003037"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-06-16T18:45:51.519860" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.518862" elapsed="0.000998"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-06-16T18:45:51.519860" level="INFO">${json} = {'state': 'IDLE', 'power_output': 0.0, 'temperature': 25.0, 'fault_code': 0, 'runtime_minutes': 4}</msg>
+<var>${json}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.519860" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-06-16T18:45:51.520840" level="INFO">${state} = IDLE</msg>
 <var>${state}</var>
-<status status="PASS" start="2026-06-16T15:52:12.768922" elapsed="0.000991"/>
+<arg>${json}</arg>
+<arg>state</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.520840" elapsed="0.000000"/>
 </kw>
 <kw name="Should Be Equal" owner="BuiltIn">
 <arg>${state}</arg>
 <arg>IDLE</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-06-16T15:52:12.770913" elapsed="0.000000"/>
-</kw>
-<kw name="Send Command" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:12.771912" level="INFO">Command sent: START (1)</msg>
-<arg>START</arg>
-<status status="PASS" start="2026-06-16T15:52:12.771912" elapsed="0.000000"/>
-</kw>
-<kw name="Wait For State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:22.797886" level="INFO">State reached: RUNNING</msg>
-<arg>RUNNING</arg>
-<arg>timeout=30</arg>
-<status status="PASS" start="2026-06-16T15:52:12.772955" elapsed="10.025884"/>
-</kw>
-<kw name="Check Power Output" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:22.803832" level="INFO">Power OK: 50.0kW</msg>
-<arg>min_kw=40</arg>
-<arg>max_kw=60</arg>
-<status status="PASS" start="2026-06-16T15:52:22.800810" elapsed="0.003022"/>
-</kw>
-<kw name="Check Temperature" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:22.806832" level="INFO">Temperature OK: 85.0C</msg>
-<arg>min_temp=75</arg>
-<arg>max_temp=90</arg>
-<status status="PASS" start="2026-06-16T15:52:22.804823" elapsed="0.003055"/>
-</kw>
-<kw name="Check No Fault" owner="BHKWLibrary">
-<status status="PASS" start="2026-06-16T15:52:22.808831" elapsed="0.002016"/>
+<status status="PASS" start="2026-06-16T18:45:51.520840" elapsed="0.001021"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-06-16T15:52:22.812888" level="INFO">TC01 PASSED: BHKW started successfully</msg>
+<msg time="2026-06-16T18:45:51.522860" level="INFO">TC12 PASSED: Status endpoint works</msg>
+<arg>TC12 PASSED: Status endpoint works</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.521861" elapsed="0.000999"/>
+</kw>
+<doc>Verify status endpoint reflects simulator state</doc>
+<tag>rest</tag>
+<tag>smoke</tag>
+<status status="PASS" start="2026-06-16T18:45:51.515825" elapsed="0.007035"/>
+</test>
+<test id="s1-s3-t3" name="TC13 Start BHKW via REST API" line="39">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-06-16T18:45:51.526837" level="INFO">POST Request : url=http://localhost:8080/api/command/start 
+ path_url=/api/command/start 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-06-16T18:45:51.526837" level="INFO">POST Response : url=http://localhost:8080/api/command/start 
+ status=200, reason=OK 
+ headers={'date': 'Tue, 16 Jun 2026 16:45:51 GMT', 'server': 'uvicorn', 'content-length': '62', 'content-type': 'application/json'} 
+ body={"success":true,"message":"START command sent","state":"IDLE"} 
+ </msg>
+<msg time="2026-06-16T18:45:51.526837" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>bhkw</arg>
+<arg>/api/command/start</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.523861" elapsed="0.002976"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-06-16T18:45:51.527858" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.527858" elapsed="0.000000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-06-16T18:45:51.528830" level="INFO">${json} = {'success': True, 'message': 'START command sent', 'state': 'IDLE'}</msg>
+<var>${json}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.528830" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-06-16T18:45:51.529824" level="INFO">${success} = True</msg>
+<var>${success}</var>
+<arg>${json}</arg>
+<arg>success</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.528830" elapsed="0.000994"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${success}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-06-16T18:45:51.529824" elapsed="0.000000"/>
+</kw>
+<kw name="Wait For State" owner="BHKWLibrary">
+<msg time="2026-06-16T18:46:01.552129" level="INFO">State reached: RUNNING</msg>
+<arg>RUNNING</arg>
+<arg>timeout=30</arg>
+<status status="PASS" start="2026-06-16T18:45:51.529824" elapsed="10.023322"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-06-16T18:46:01.555124" level="INFO">TC13 PASSED: BHKW started via REST</msg>
+<arg>TC13 PASSED: BHKW started via REST</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.554123" elapsed="0.001001"/>
+</kw>
+<doc>Verify BHKW can be started via REST POST command</doc>
+<tag>regression</tag>
+<tag>rest</tag>
+<status status="PASS" start="2026-06-16T18:45:51.522860" elapsed="10.033322"/>
+</test>
+<test id="s1-s3-t4" name="TC14 Status reflects RUNNING state" line="50">
+<kw name="Read State" owner="BHKWLibrary">
+<msg time="2026-06-16T18:46:01.562178" level="INFO">${modbus_state} = RUNNING</msg>
+<var>${modbus_state}</var>
+<status status="PASS" start="2026-06-16T18:46:01.560116" elapsed="0.002062"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-06-16T18:46:01.574117" level="INFO">GET Request : url=http://localhost:8080/api/status 
+ path_url=/api/status 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-06-16T18:46:01.575156" level="INFO">GET Response : url=http://localhost:8080/api/status 
+ status=200, reason=OK 
+ headers={'date': 'Tue, 16 Jun 2026 16:46:01 GMT', 'server': 'uvicorn', 'content-length': '93', 'content-type': 'application/json'} 
+ body={"state":"RUNNING","power_output":50.0,"temperature":85.0,"fault_code":0,"runtime_minutes":4} 
+ </msg>
+<msg time="2026-06-16T18:46:01.575156" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>bhkw</arg>
+<arg>/api/status</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.563191" elapsed="0.011965"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-06-16T18:46:01.577172" level="INFO">${json} = {'state': 'RUNNING', 'power_output': 50.0, 'temperature': 85.0, 'fault_code': 0, 'runtime_minutes': 4}</msg>
+<var>${json}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.575156" elapsed="0.002016"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-06-16T18:46:01.577172" level="INFO">${rest_state} = RUNNING</msg>
+<var>${rest_state}</var>
+<arg>${json}</arg>
+<arg>state</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.577172" elapsed="0.000976"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${modbus_state}</arg>
+<arg>${rest_state}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.578148" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-06-16T18:46:01.579148" level="INFO">${power} = 50.0</msg>
+<var>${power}</var>
+<arg>${json}</arg>
+<arg>power_output</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.579148" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${power} &gt;= 40</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.579148" elapsed="0.001004"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-06-16T18:46:01.580152" level="INFO">TC14 PASSED: REST and Modbus states match</msg>
+<arg>TC14 PASSED: REST and Modbus states match</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.580152" elapsed="0.000997"/>
+</kw>
+<doc>Verify REST status matches Modbus state during RUNNING</doc>
+<tag>regression</tag>
+<tag>rest</tag>
+<status status="PASS" start="2026-06-16T18:46:01.558126" elapsed="0.023023"/>
+</test>
+<test id="s1-s3-t5" name="TC15 Power endpoint returns valid value" line="62">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-06-16T18:46:01.586144" level="INFO">GET Request : url=http://localhost:8080/api/power 
+ path_url=/api/power 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-06-16T18:46:01.586144" level="INFO">GET Response : url=http://localhost:8080/api/power 
+ status=200, reason=OK 
+ headers={'date': 'Tue, 16 Jun 2026 16:46:01 GMT', 'server': 'uvicorn', 'content-length': '33', 'content-type': 'application/json'} 
+ body={"power_output":50.0,"unit":"kW"} 
+ </msg>
+<msg time="2026-06-16T18:46:01.586144" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>bhkw</arg>
+<arg>/api/power</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.583113" elapsed="0.003992"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-06-16T18:46:01.588141" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.587105" elapsed="0.001036"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-06-16T18:46:01.589142" level="INFO">${json} = {'power_output': 50.0, 'unit': 'kW'}</msg>
+<var>${json}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.588141" elapsed="0.001001"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-06-16T18:46:01.589142" level="INFO">${power} = 50.0</msg>
+<var>${power}</var>
+<arg>${json}</arg>
+<arg>power_output</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.589142" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${power} &gt;= 40</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.589142" elapsed="0.000999"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-06-16T18:46:01.590141" level="INFO">TC15 PASSED: Power endpoint OK</msg>
+<arg>TC15 PASSED: Power endpoint OK</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.590141" elapsed="0.000000"/>
+</kw>
+<doc>Verify power measurement endpoint</doc>
+<tag>regression</tag>
+<tag>rest</tag>
+<status status="PASS" start="2026-06-16T18:46:01.582106" elapsed="0.009038"/>
+</test>
+<test id="s1-s3-t6" name="TC16 Stop BHKW via REST API" line="72">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-06-16T18:46:01.594139" level="INFO">POST Request : url=http://localhost:8080/api/command/stop 
+ path_url=/api/command/stop 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-06-16T18:46:01.594139" level="INFO">POST Response : url=http://localhost:8080/api/command/stop 
+ status=200, reason=OK 
+ headers={'date': 'Tue, 16 Jun 2026 16:46:01 GMT', 'server': 'uvicorn', 'content-length': '64', 'content-type': 'application/json'} 
+ body={"success":true,"message":"STOP command sent","state":"RUNNING"} 
+ </msg>
+<msg time="2026-06-16T18:46:01.594139" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>bhkw</arg>
+<arg>/api/command/stop</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.592142" elapsed="0.001997"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-06-16T18:46:01.595147" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-06-16T18:46:01.595147" elapsed="0.000000"/>
+</kw>
+<kw name="Wait For State" owner="BHKWLibrary">
+<msg time="2026-06-16T18:46:11.616376" level="INFO">State reached: IDLE</msg>
+<arg>IDLE</arg>
+<arg>timeout=30</arg>
+<status status="PASS" start="2026-06-16T18:46:01.595147" elapsed="10.021229"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-06-16T18:46:11.618306" level="INFO">TC16 PASSED: BHKW stopped via REST</msg>
+<arg>TC16 PASSED: BHKW stopped via REST</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-06-16T18:46:11.617363" elapsed="0.002001"/>
+</kw>
+<doc>Verify BHKW can be stopped via REST POST command</doc>
+<tag>regression</tag>
+<tag>rest</tag>
+<status status="PASS" start="2026-06-16T18:46:01.591144" elapsed="10.028220"/>
+</test>
+<test id="s1-s3-t7" name="TC17 START rejected when not in IDLE state" line="80">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-06-16T18:46:11.637307" level="INFO">POST Request : url=http://localhost:8080/api/command/start 
+ path_url=/api/command/start 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-06-16T18:46:11.638349" level="INFO">POST Response : url=http://localhost:8080/api/command/start 
+ status=200, reason=OK 
+ headers={'date': 'Tue, 16 Jun 2026 16:46:11 GMT', 'server': 'uvicorn', 'content-length': '62', 'content-type': 'application/json'} 
+ body={"success":true,"message":"START command sent","state":"IDLE"} 
+ </msg>
+<msg time="2026-06-16T18:46:11.638349" level="INFO">${resp1} = &lt;Response [200]&gt;</msg>
+<var>${resp1}</var>
+<arg>bhkw</arg>
+<arg>/api/command/start</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-06-16T18:46:11.625302" elapsed="0.013047"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-06-16T18:46:11.640337" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp1.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-06-16T18:46:11.638349" elapsed="0.001988"/>
+</kw>
+<kw name="Wait For State" owner="BHKWLibrary">
+<msg time="2026-06-16T18:46:21.662262" level="INFO">State reached: RUNNING</msg>
+<arg>RUNNING</arg>
+<arg>timeout=30</arg>
+<status status="PASS" start="2026-06-16T18:46:11.640337" elapsed="10.021925"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-06-16T18:46:21.677259" level="INFO">POST Request : url=http://localhost:8080/api/command/start 
+ path_url=/api/command/start 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-06-16T18:46:21.677259" level="INFO">POST Response : url=http://localhost:8080/api/command/start 
+ status=409, reason=Conflict 
+ headers={'date': 'Tue, 16 Jun 2026 16:46:21 GMT', 'server': 'uvicorn', 'content-length': '44', 'content-type': 'application/json'} 
+ body={"detail":"Cannot START from state RUNNING"} 
+ </msg>
+<msg time="2026-06-16T18:46:21.677259" level="INFO">${resp2} = &lt;Response [409]&gt;</msg>
+<var>${resp2}</var>
+<arg>bhkw</arg>
+<arg>/api/command/start</arg>
+<arg>expected_status=409</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-06-16T18:46:21.663262" elapsed="0.014999"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-06-16T18:46:21.681234" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp2.status_code}</arg>
+<arg>409</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-06-16T18:46:21.679240" elapsed="0.001994"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-06-16T18:46:21.684227" level="INFO">TC17 PASSED: Duplicate START correctly rejected with 409</msg>
+<arg>TC17 PASSED: Duplicate START correctly rejected with 409</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-06-16T18:46:21.683236" elapsed="0.000991"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-06-16T18:46:21.690236" level="INFO">POST Request : url=http://localhost:8080/api/command/stop 
+ path_url=/api/command/stop 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-06-16T18:46:21.690236" level="INFO">POST Response : url=http://localhost:8080/api/command/stop 
+ status=200, reason=OK 
+ headers={'date': 'Tue, 16 Jun 2026 16:46:21 GMT', 'server': 'uvicorn', 'content-length': '64', 'content-type': 'application/json'} 
+ body={"success":true,"message":"STOP command sent","state":"RUNNING"} 
+ </msg>
+<arg>bhkw</arg>
+<arg>/api/command/stop</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-06-16T18:46:21.685240" elapsed="0.004996"/>
+</kw>
+<kw name="Wait For State" owner="BHKWLibrary">
+<msg time="2026-06-16T18:46:31.713739" level="INFO">State reached: IDLE</msg>
+<arg>IDLE</arg>
+<arg>timeout=30</arg>
+<status status="PASS" start="2026-06-16T18:46:21.690236" elapsed="10.023503"/>
+</kw>
+<doc>Verify REST API returns 409 when START is called twice</doc>
+<tag>negative</tag>
+<tag>rest</tag>
+<status status="PASS" start="2026-06-16T18:46:11.622373" elapsed="20.092349"/>
+</test>
+<kw name="Disconnect From Bhkw" owner="BHKWLibrary" type="TEARDOWN">
+<msg time="2026-06-16T18:46:31.718785" level="INFO">Disconnected from BHKW</msg>
+<status status="PASS" start="2026-06-16T18:46:31.717714" elapsed="0.001071"/>
+</kw>
+<status status="PASS" start="2026-06-16T18:45:51.302336" elapsed="40.416449"/>
+</suite>
+<suite id="s1-s4" name="Test Start Stop" source="C:\Users\Steve\Desktop\bhkw-system-tests\tests\test_start_stop.robot">
+<kw name="Connect To Bhkw" owner="BHKWLibrary" type="SETUP">
+<msg time="2026-06-16T18:46:31.742297" level="INFO">Connected to BHKW at localhost:5020</msg>
+<status status="PASS" start="2026-06-16T18:46:31.729757" elapsed="0.012540"/>
+</kw>
+<test id="s1-s4-t1" name="TC01 BHKW starts from IDLE state" line="8">
+<kw name="Read State" owner="BHKWLibrary">
+<msg time="2026-06-16T18:46:31.744296" level="INFO">${state} = IDLE</msg>
+<var>${state}</var>
+<status status="PASS" start="2026-06-16T18:46:31.743327" elapsed="0.000969"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${state}</arg>
+<arg>IDLE</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-06-16T18:46:31.745350" elapsed="0.000000"/>
+</kw>
+<kw name="Send Command" owner="BHKWLibrary">
+<msg time="2026-06-16T18:46:31.746335" level="INFO">Command sent: START (1)</msg>
+<arg>START</arg>
+<status status="PASS" start="2026-06-16T18:46:31.745350" elapsed="0.000985"/>
+</kw>
+<kw name="Wait For State" owner="BHKWLibrary">
+<msg time="2026-06-16T18:46:41.767458" level="INFO">State reached: RUNNING</msg>
+<arg>RUNNING</arg>
+<arg>timeout=30</arg>
+<status status="PASS" start="2026-06-16T18:46:31.746335" elapsed="10.022179"/>
+</kw>
+<kw name="Check Power Output" owner="BHKWLibrary">
+<msg time="2026-06-16T18:46:41.770453" level="INFO">Power OK: 50.0kW</msg>
+<arg>min_kw=40</arg>
+<arg>max_kw=60</arg>
+<status status="PASS" start="2026-06-16T18:46:41.768514" elapsed="0.001939"/>
+</kw>
+<kw name="Check Temperature" owner="BHKWLibrary">
+<msg time="2026-06-16T18:46:41.774450" level="INFO">Temperature OK: 85.0C</msg>
+<arg>min_temp=75</arg>
+<arg>max_temp=90</arg>
+<status status="PASS" start="2026-06-16T18:46:41.771444" elapsed="0.003006"/>
+</kw>
+<kw name="Check No Fault" owner="BHKWLibrary">
+<status status="PASS" start="2026-06-16T18:46:41.775522" elapsed="0.002001"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-06-16T18:46:41.779510" level="INFO">TC01 PASSED: BHKW started successfully</msg>
 <arg>TC01 PASSED: BHKW started successfully</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-06-16T15:52:22.811818" elapsed="0.001070"/>
+<status status="PASS" start="2026-06-16T18:46:41.778512" elapsed="0.000998"/>
 </kw>
 <doc>Verify BHKW transitions from IDLE to RUNNING after START command</doc>
 <tag>smoke</tag>
 <tag>start</tag>
-<status status="PASS" start="2026-06-16T15:52:12.767898" elapsed="10.046000"/>
+<status status="PASS" start="2026-06-16T18:46:31.742297" elapsed="10.038216"/>
 </test>
-<test id="s1-s3-t2" name="TC02 BHKW stops from RUNNING state" line="20">
+<test id="s1-s4-t2" name="TC02 BHKW stops from RUNNING state" line="20">
 <kw name="Read State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:22.821797" level="INFO">${state} = RUNNING</msg>
+<msg time="2026-06-16T18:46:41.785455" level="INFO">${state} = RUNNING</msg>
 <var>${state}</var>
-<status status="PASS" start="2026-06-16T15:52:22.820813" elapsed="0.000984"/>
+<status status="PASS" start="2026-06-16T18:46:41.783455" elapsed="0.002000"/>
 </kw>
 <kw name="Should Be Equal" owner="BuiltIn">
 <arg>${state}</arg>
 <arg>RUNNING</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2026-06-16T15:52:22.821797" elapsed="0.000000"/>
+<status status="PASS" start="2026-06-16T18:46:41.786486" elapsed="0.001023"/>
 </kw>
 <kw name="Send Command" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:22.822796" level="INFO">Command sent: STOP (2)</msg>
+<msg time="2026-06-16T18:46:41.789449" level="INFO">Command sent: STOP (2)</msg>
 <arg>STOP</arg>
-<status status="PASS" start="2026-06-16T15:52:22.822796" elapsed="0.000000"/>
+<status status="PASS" start="2026-06-16T18:46:41.788521" elapsed="0.000928"/>
 </kw>
 <kw name="Wait For State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:32.850957" level="INFO">State reached: IDLE</msg>
+<msg time="2026-06-16T18:46:51.814782" level="INFO">State reached: IDLE</msg>
 <arg>IDLE</arg>
 <arg>timeout=30</arg>
-<status status="PASS" start="2026-06-16T15:52:22.822796" elapsed="10.028161"/>
+<status status="PASS" start="2026-06-16T18:46:41.790447" elapsed="10.025295"/>
 </kw>
 <kw name="Read Power Output" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:32.854952" level="INFO">${power} = 0.0</msg>
+<msg time="2026-06-16T18:46:51.818737" level="INFO">${power} = 0.0</msg>
 <var>${power}</var>
-<status status="PASS" start="2026-06-16T15:52:32.851899" elapsed="0.003053"/>
+<status status="PASS" start="2026-06-16T18:46:51.816725" elapsed="0.002012"/>
 </kw>
 <kw name="Should Be Equal As Numbers" owner="BuiltIn">
-<msg time="2026-06-16T15:52:32.857876" level="INFO">Argument types are:
+<msg time="2026-06-16T18:46:51.821732" level="INFO">Argument types are:
 &lt;class 'float'&gt;
 &lt;class 'str'&gt;</msg>
 <arg>${power}</arg>
 <arg>0</arg>
 <doc>Fails if objects are unequal after converting them to real numbers.</doc>
-<status status="PASS" start="2026-06-16T15:52:32.855955" elapsed="0.001921"/>
+<status status="PASS" start="2026-06-16T18:46:51.819727" elapsed="0.002005"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-06-16T15:52:32.859954" level="INFO">TC02 PASSED: BHKW stopped successfully</msg>
+<msg time="2026-06-16T18:46:51.823774" level="INFO">TC02 PASSED: BHKW stopped successfully</msg>
 <arg>TC02 PASSED: BHKW stopped successfully</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-06-16T15:52:32.858896" elapsed="0.001058"/>
+<status status="PASS" start="2026-06-16T18:46:51.822789" elapsed="0.000985"/>
 </kw>
 <doc>Verify BHKW transitions from RUNNING to IDLE after STOP command</doc>
 <tag>smoke</tag>
 <tag>stop</tag>
-<status status="PASS" start="2026-06-16T15:52:22.817816" elapsed="10.043065"/>
+<status status="PASS" start="2026-06-16T18:46:41.781453" elapsed="10.044272"/>
 </test>
-<test id="s1-s3-t3" name="TC03 Complete start-stop cycle" line="31">
+<test id="s1-s4-t3" name="TC03 Complete start-stop cycle" line="31">
 <kw name="Send Command" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:32.868871" level="INFO">Command sent: START (1)</msg>
+<msg time="2026-06-16T18:46:51.829849" level="INFO">Command sent: START (1)</msg>
 <arg>START</arg>
-<status status="PASS" start="2026-06-16T15:52:32.866874" elapsed="0.001997"/>
+<status status="PASS" start="2026-06-16T18:46:51.828768" elapsed="0.001081"/>
 </kw>
 <kw name="Wait For State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:42.897539" level="INFO">State reached: RUNNING</msg>
+<msg time="2026-06-16T18:47:01.854810" level="INFO">State reached: RUNNING</msg>
 <arg>RUNNING</arg>
 <arg>timeout=30</arg>
-<status status="PASS" start="2026-06-16T15:52:32.869878" elapsed="10.027661"/>
+<status status="PASS" start="2026-06-16T18:46:51.830802" elapsed="10.024008"/>
 </kw>
 <kw name="Check Power Output" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:42.901575" level="INFO">Power OK: 50.0kW</msg>
+<msg time="2026-06-16T18:47:01.857813" level="INFO">Power OK: 50.0kW</msg>
 <arg>min_kw=40</arg>
-<status status="PASS" start="2026-06-16T15:52:42.899512" elapsed="0.002063"/>
+<status status="PASS" start="2026-06-16T18:47:01.855754" elapsed="0.002059"/>
 </kw>
 <kw name="Check No Fault" owner="BHKWLibrary">
-<status status="PASS" start="2026-06-16T15:52:42.902530" elapsed="0.001978"/>
+<status status="PASS" start="2026-06-16T18:47:01.858820" elapsed="0.002639"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2026-06-16T15:52:45.908496" level="INFO">Slept 3 seconds.</msg>
+<msg time="2026-06-16T18:47:04.864021" level="INFO">Slept 3 seconds.</msg>
 <arg>3</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2026-06-16T15:52:42.905584" elapsed="3.002912"/>
+<status status="PASS" start="2026-06-16T18:47:01.862408" elapsed="3.001613"/>
 </kw>
 <kw name="Send Command" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:45.910520" level="INFO">Command sent: STOP (2)</msg>
+<msg time="2026-06-16T18:47:04.866672" level="INFO">Command sent: STOP (2)</msg>
 <arg>STOP</arg>
-<status status="PASS" start="2026-06-16T15:52:45.909538" elapsed="0.001992"/>
+<status status="PASS" start="2026-06-16T18:47:04.864021" elapsed="0.002651"/>
 </kw>
 <kw name="Wait For State" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:55.930301" level="INFO">State reached: IDLE</msg>
+<msg time="2026-06-16T18:47:15.890393" level="INFO">State reached: IDLE</msg>
 <arg>IDLE</arg>
 <arg>timeout=30</arg>
-<status status="PASS" start="2026-06-16T15:52:45.911530" elapsed="10.018771"/>
+<status status="PASS" start="2026-06-16T18:47:04.867674" elapsed="11.022719"/>
 </kw>
 <kw name="Read Power Output" owner="BHKWLibrary">
-<msg time="2026-06-16T15:52:55.931311" level="INFO">${power} = 0.0</msg>
+<msg time="2026-06-16T18:47:15.892466" level="INFO">${power} = 0.0</msg>
 <var>${power}</var>
-<status status="PASS" start="2026-06-16T15:52:55.930301" elapsed="0.001010"/>
+<status status="PASS" start="2026-06-16T18:47:15.891459" elapsed="0.001007"/>
 </kw>
 <kw name="Should Be Equal As Numbers" owner="BuiltIn">
-<msg time="2026-06-16T15:52:55.931311" level="INFO">Argument types are:
+<msg time="2026-06-16T18:47:15.894410" level="INFO">Argument types are:
 &lt;class 'float'&gt;
 &lt;class 'str'&gt;</msg>
 <arg>${power}</arg>
 <arg>0</arg>
 <doc>Fails if objects are unequal after converting them to real numbers.</doc>
-<status status="PASS" start="2026-06-16T15:52:55.931311" elapsed="0.000000"/>
+<status status="PASS" start="2026-06-16T18:47:15.893467" elapsed="0.000943"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-06-16T15:52:55.932361" level="INFO">TC03 PASSED: Full cycle completed</msg>
+<msg time="2026-06-16T18:47:15.896410" level="INFO">TC03 PASSED: Full cycle completed</msg>
 <arg>TC03 PASSED: Full cycle completed</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-06-16T15:52:55.932361" elapsed="0.000000"/>
+<status status="PASS" start="2026-06-16T18:47:15.895422" elapsed="0.000988"/>
 </kw>
 <doc>Verify full START -&gt; RUNNING -&gt; STOP -&gt; IDLE cycle</doc>
 <tag>cycle</tag>
 <tag>regression</tag>
-<status status="PASS" start="2026-06-16T15:52:32.863895" elapsed="23.069416"/>
+<status status="PASS" start="2026-06-16T18:46:51.827714" elapsed="24.069694"/>
 </test>
 <kw name="Disconnect From Bhkw" owner="BHKWLibrary" type="TEARDOWN">
-<msg time="2026-06-16T15:52:55.933311" level="INFO">Disconnected from BHKW</msg>
-<status status="PASS" start="2026-06-16T15:52:55.933311" elapsed="0.000000"/>
+<msg time="2026-06-16T18:47:15.898408" level="INFO">Disconnected from BHKW</msg>
+<status status="PASS" start="2026-06-16T18:47:15.898408" elapsed="0.000000"/>
 </kw>
-<status status="PASS" start="2026-06-16T15:52:12.749631" elapsed="43.184721"/>
+<status status="PASS" start="2026-06-16T18:46:31.721710" elapsed="44.176698"/>
 </suite>
-<status status="PASS" start="2026-06-16T15:51:31.420605" elapsed="84.513747"/>
+<status status="PASS" start="2026-06-16T18:45:10.059764" elapsed="125.840643"/>
 </suite>
 <statistics>
 <total>
-<stat pass="10" fail="0" skip="0">All Tests</stat>
+<stat pass="17" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
 <stat pass="1" fail="0" skip="0">cycle</stat>
 <stat pass="3" fail="0" skip="0">fault</stat>
-<stat pass="1" fail="0" skip="0">negative</stat>
+<stat pass="2" fail="0" skip="0">negative</stat>
 <stat pass="3" fail="0" skip="0">power</stat>
-<stat pass="7" fail="0" skip="0">regression</stat>
+<stat pass="11" fail="0" skip="0">regression</stat>
 <stat pass="1" fail="0" skip="0">reset</stat>
-<stat pass="2" fail="0" skip="0">smoke</stat>
+<stat pass="7" fail="0" skip="0">rest</stat>
+<stat pass="4" fail="0" skip="0">smoke</stat>
 <stat pass="1" fail="0" skip="0">start</stat>
 <stat pass="2" fail="0" skip="0">stop</stat>
 <stat pass="1" fail="0" skip="0">temperature</stat>
 </tag>
 <suite>
-<stat name="Tests" id="s1" pass="10" fail="0" skip="0">Tests</stat>
+<stat name="Tests" id="s1" pass="17" fail="0" skip="0">Tests</stat>
 <stat name="Test Fault Handling" id="s1-s1" pass="3" fail="0" skip="0">Tests.Test Fault Handling</stat>
 <stat name="Test Power Regulation" id="s1-s2" pass="4" fail="0" skip="0">Tests.Test Power Regulation</stat>
-<stat name="Test Start Stop" id="s1-s3" pass="3" fail="0" skip="0">Tests.Test Start Stop</stat>
+<stat name="Test Rest Api" id="s1-s3" pass="7" fail="0" skip="0">Tests.Test Rest Api</stat>
+<stat name="Test Start Stop" id="s1-s4" pass="3" fail="0" skip="0">Tests.Test Start Stop</stat>
 </suite>
 </statistics>
 <errors>

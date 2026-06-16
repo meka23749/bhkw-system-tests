@@ -1,11 +1,14 @@
-﻿# Test Framework
+# Test Framework
 robotframework==7.0.0
+robotframework-requests==0.9.5
 
 # Modbus
 pymodbus==3.6.4
 
-# REST API Testing
-robotframework-requests==0.9.5
+# REST API
+fastapi==0.111.0
+uvicorn==0.29.0
+pydantic==2.7.1
 
-# Utilities
+# HTTP
 requests==2.31.0
