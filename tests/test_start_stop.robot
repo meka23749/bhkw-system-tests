@@ -1,5 +1,5 @@
-﻿*** Settings ***
-Resource    keywords/bhkw_keywords.robot
+*** Settings ***
+Library    BHKWLibrary    host=localhost    port=5020    unit=1
 Suite Setup       Connect To BHKW
 Suite Teardown    Disconnect From BHKW
 
@@ -8,8 +8,8 @@ Suite Teardown    Disconnect From BHKW
 TC01 BHKW starts from IDLE state
     [Documentation]    Verify BHKW transitions from IDLE to RUNNING after START command
     [Tags]    start    smoke
-    utf8{state}=    Read State
-    Should Be Equal    utf8{state}    IDLE    msg=BHKW must be in IDLE before start
+    ${state}=    Read State
+    Should Be Equal    ${state}    IDLE
     Send Command    START
     Wait For State    RUNNING    timeout=30
     Check Power Output    min_kw=40    max_kw=60
@@ -20,12 +20,12 @@ TC01 BHKW starts from IDLE state
 TC02 BHKW stops from RUNNING state
     [Documentation]    Verify BHKW transitions from RUNNING to IDLE after STOP command
     [Tags]    stop    smoke
-    utf8{state}=    Read State
-    Should Be Equal    utf8{state}    RUNNING    msg=BHKW must be RUNNING before stop
+    ${state}=    Read State
+    Should Be Equal    ${state}    RUNNING
     Send Command    STOP
     Wait For State    IDLE    timeout=30
-    utf8{power}=    Read Power Output
-    Should Be Equal As Numbers    utf8{power}    0    msg=Power must be 0 after stop
+    ${power}=    Read Power Output
+    Should Be Equal As Numbers    ${power}    0
     Log    TC02 PASSED: BHKW stopped successfully
 
 TC03 Complete start-stop cycle
@@ -38,6 +38,6 @@ TC03 Complete start-stop cycle
     Sleep    3
     Send Command    STOP
     Wait For State    IDLE    timeout=30
-    utf8{power}=    Read Power Output
-    Should Be Equal As Numbers    utf8{power}    0
+    ${power}=    Read Power Output
+    Should Be Equal As Numbers    ${power}    0
     Log    TC03 PASSED: Full cycle completed
