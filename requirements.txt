@@ -1,0 +1,11 @@
+﻿# Test Framework
+robotframework==7.0.0
+
+# Modbus
+pymodbus==3.6.4
+
+# REST API Testing
+robotframework-requests==0.9.5
+
+# Utilities
+requests==2.31.0

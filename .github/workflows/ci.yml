@@ -1,0 +1,55 @@
+﻿name: CI -- BHKW System Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  test:
+    name: Run Robot Framework Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Start BHKW Simulator
+        run: |
+          python simulator/bhkw_simulator.py &
+          sleep 3
+
+      - name: Run smoke tests
+        run: |
+          robot --include smoke \
+                --outputdir results \
+                --log log.html \
+                --report report.html \
+                tests/
+
+      - name: Run regression tests
+        run: |
+          robot --include regression \
+                --outputdir results \
+                --log log_regression.html \
+                --report report_regression.html \
+                tests/
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: robot-results
+          path: results/
