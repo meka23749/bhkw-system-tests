@@ -144,7 +144,7 @@ if __name__ == '__main__':
 
     modbus_thread = threading.Thread(
         target=simulator.start_modbus,
-        kwargs={'host': 'localhost', 'port': 5020},
+        kwargs={'host': '0.0.0.0', 'port': 5020},
         daemon=True
     )
     modbus_thread.start()
@@ -153,4 +153,4 @@ if __name__ == '__main__':
     print('Modbus TCP on localhost:5020')
     print('REST API  on localhost:8080')
 
-    start_api(simulator, host='localhost', port=8080)
+    start_api(simulator, host='0.0.0.0', port=8080)

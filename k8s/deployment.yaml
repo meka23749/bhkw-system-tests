@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bhkw-simulator
+  labels:
+    app: bhkw-simulator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bhkw-simulator
+  template:
+    metadata:
+      labels:
+        app: bhkw-simulator
+    spec:
+      containers:
+        - name: bhkw-simulator
+          image: bhkw-simulator:v2
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5020
+              name: modbus
+            - containerPort: 8080
+              name: rest-api
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
