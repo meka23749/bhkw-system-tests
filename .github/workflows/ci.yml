@@ -37,7 +37,7 @@ jobs:
                           --outputdir results \
                           --log log.html \
                           --report report.html \
-                          tests/
+                          tests/test_start_stop.robot tests/test_fault_handling.robot tests/test_power_regulation.robot tests/test_rest_api.robot
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
