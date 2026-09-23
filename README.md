@@ -7,25 +7,23 @@ using Robot Framework and Modbus TCP  with a Software-in-the-Loop (SiL) simulato
 
 Robot Framework Tests
 
-|
+```mermaid
+stateDiagram-v2
+    [*] --> IDLE
 
-| Modbus TCP
+    IDLE --> STARTING
+    STARTING --> RUNNING
+    RUNNING --> STOPPING
+    STOPPING --> IDLE
 
-v
+    IDLE --> FAULT
+    STARTING --> FAULT
+    RUNNING --> FAULT
+    STOPPING --> FAULT
 
-BHKW Simulator (Python)
-
-|
-
-| State Machine
-
-v
-
-IDLE -> STARTING -> RUNNING -> STOPPING -> IDLE
-
-|
-
-FAULT -> RESET -> IDLE
+    FAULT --> RESET
+    RESET --> IDLE
+```
 
 ## Test Suites
 
