@@ -1,7 +1,7 @@
-﻿# BHKW System Tests — Robot Framework & Modbus TCP
+﻿# BHKW System Tests: Robot Framework & Modbus TCP
 
 Automated system tests for a BHKW (Blockheizkraftwerk / Combined Heat and Power) controller
-using Robot Framework and Modbus TCP — with a Software-in-the-Loop (SiL) simulator.
+using Robot Framework and Modbus TCP  with a Software-in-the-Loop (SiL) simulator.
 
 ## Architecture
 
