@@ -1,0 +1,8 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Robot Framework outputs (published by CI as artifacts)
+results/*.html
+results/*.xml
